@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-
+from rest_framework.permissions import IsAuthenticated
 from core.filters import PropertyFilter, BookingFilter
 from core.models import Property, PricingRule, Booking
 from core.pagination import StandardResultsSetPagination
@@ -16,15 +16,18 @@ class PropertyViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = PropertyFilter
+    permission_classes = [IsAuthenticated]
 
 
 class PricingRuleViewSet(viewsets.ModelViewSet):
     serializer_class = PricingRuleSerializer
     queryset = PricingRule.objects.all()
     pagination_class = StandardResultsSetPagination
+    permission_classes = [IsAuthenticated]
 
 
 class BookingViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = BookingSerializer
     queryset = Booking.objects.all()
     pagination_class = StandardResultsSetPagination
