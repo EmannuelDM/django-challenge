@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
+    container_name: southern_code
+    volumes:
+      - .:/app
+    ports:
+      - "8002:8002"
